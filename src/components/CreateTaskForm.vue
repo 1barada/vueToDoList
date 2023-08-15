@@ -25,7 +25,7 @@ function createTask() {
   <div>
     <p>Create task</p>
     <input type="text" v-model="text">
-    <button @click="createTask">create</button>
+    <button @click="createTask">add</button>
   </div>
 </template>
 
