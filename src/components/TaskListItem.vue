@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type Task from '@/models/Task';
 import { ref } from 'vue';
+import Button from '@/components/UI/Button.vue';
+import TextInput from '@/components/UI/TextInput.vue';
 
 
 const props = defineProps<{
@@ -31,25 +33,52 @@ function saveChanges() {
   } else {
     emit('saveChanges', props.task.id, props.task.text);
   }
-
-  newText.value = '';
 }
 
 </script>
 
 <template>
-  <div v-if="editing">
-    <input type="text" v-model="newText" defa/>
-    <button @click="saveChanges">save</button>
+  <div v-if="editing" class="list_item">
+    <TextInput type="text" v-model="newText" class="input"/>
+    <div class="list_item_ui">
+      <Button @click="saveChanges">save</Button>
+    </div>
   </div>
-  <div v-else>
-    <p>{{ task.text }}</p>
-    <button @click="editTask">edit</button>
-    <button @click="deleteTask">delete</button>
-    <input type="checkbox" v-model="task.done"/>
+  <div v-else class="list_item"> 
+    <div class="list_item__text" :class="{strikethrough: task.done}">
+      {{ task.text }}
+    </div>
+    <div class="list_item_ui">
+      <Button @click="editTask" :disabled="task.done">edit</Button>
+      <Button @click="deleteTask" :disabled="task.done">delete</Button>
+      <input type="checkbox" v-model="task.done"/>
+    </div>
   </div>
 </template>
 
 <style scoped>
-
+.list_item {
+  flex: 0 1 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 5px;
+}
+.list_item:not(:last-child) {
+  border-bottom: 2px solid bisque;
+} 
+.list_item_ui {
+  display: flex;
+  gap: 5px;
+}
+.list_item__text {
+  word-break: break-all;
+}
+.strikethrough {
+  text-decoration: line-through;
+}
+.input {
+  flex-grow: 1;
+}
 </style> 

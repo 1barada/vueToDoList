@@ -41,8 +41,10 @@ function saveChanges(id: number, newText: string) {
 </script>
 
 <template>
-  <div>
-    <CreateTaskForm @createTask="createTask"/> 
+  <div class="container">
+    <CreateTaskForm 
+      @createTask="createTask"
+    /> 
     <TaskList 
       :tasks="tasks" 
       :editing="editing" 
@@ -54,5 +56,8 @@ function saveChanges(id: number, newText: string) {
 </template>
 
 <style scoped>
-
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+}
 </style> 

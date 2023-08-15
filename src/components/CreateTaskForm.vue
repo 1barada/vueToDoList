@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type Task from '@/models/Task';
 import { ref } from 'vue';
+import Button from '@/components/UI/Button.vue';
+import TextInput from '@/components/UI/TextInput.vue';
 
 const emit = defineEmits<{
   createTask: [task: Task]
@@ -9,7 +11,10 @@ const emit = defineEmits<{
 const text = ref<string>('');
 
 function createTask() {
-  if (!text.value.trim()) return;
+  if (!text.value.trim()) {
+    text.value = '';  
+    return;
+  }
   
   emit('createTask', {
     id: Date.now(),
@@ -22,13 +27,17 @@ function createTask() {
 </script>
 
 <template>
-  <div>
-    <p>Create task</p>
-    <input type="text" v-model="text">
-    <button @click="createTask">add</button>
+  <div class="form">
+    <h3>Create task</h3>
+    <TextInput v-model="text"/>
+    <Button @click="createTask">add</Button>
   </div>
 </template>
 
 <style scoped>
-
+.form {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
 </style> 

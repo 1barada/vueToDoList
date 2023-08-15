@@ -27,8 +27,9 @@ function saveChanges(id: number, newText: string) {
 </script>
 
 <template>
-  <div v-for="task in tasks" :key="task.id">
+  <div class="list">
     <TaskListItem 
+      v-for="task in tasks" :key="task.id"
       :task="task" 
       :editing="editing ? editing === task.id : false" 
       @deleteTask="deleteTask"
@@ -39,5 +40,9 @@ function saveChanges(id: number, newText: string) {
 </template>
 
 <style scoped>
-
+.list {
+  flex: 0 1 100%;
+  display: flex;
+  flex-direction: column;
+}
 </style> 
